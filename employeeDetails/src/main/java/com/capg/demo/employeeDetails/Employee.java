@@ -1,7 +1,11 @@
 package com.capg.demo.employeeDetails;
 
 public class Employee {
-
+   
+	@Override
+	public String toString() {
+		return "Employee [name=" + name + ", phone=" + phone + ", address=" + address + "]";
+	}
 	private String name;
 	private int phone;
 	private String address;
