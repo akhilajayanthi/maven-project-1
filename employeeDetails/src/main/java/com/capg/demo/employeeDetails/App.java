@@ -1,29 +1,30 @@
 package com.capg.demo.employeeDetails;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-	String name,address;
-	String phone;
-	
-	public static Employee setDetails(String name,int phone,String address) {
-		
-		Employee emp = new Employee();
-		emp.setName(name);
-		emp.setPhone(phone);
-		emp.setAddress(address);
-		
-		return emp;
-		
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class App {
+
+	@Autowired
+	static Employee emp;
+
+	public static void disableWarning() {
+		System.err.close();
+		System.setErr(System.out);
 	}
-	
-    public static void main( String[] args )
-    {
-      
-    	Employee emp = setDetails("abc",98659406,"hyd");
-    	System.out.println(emp.getName()+ " "+ emp.getPhone()+ " "+emp.getAddress());
-    }
+
+	public static void main(String[] args) {
+
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		
+		context.register(AppConfig.class);
+		context.scan("com.capg.demo.employeeDetails");
+		context.refresh();
+		disableWarning();
+		emp = context.getBean(Employee.class);
+		System.out.println(emp);
+		context.registerShutdownHook();
+		context.close();
+
+	}
 }
