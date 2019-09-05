@@ -16,14 +16,13 @@ public class App {
 	public static void main(String[] args) {
 
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-		
-		context.register(AppConfig.class);
+		disableWarning();
 		context.scan("com.capg.demo.employeeDetails");
 		context.refresh();
-		disableWarning();
+		
 		emp = context.getBean(Employee.class);
 		System.out.println(emp);
-		context.registerShutdownHook();
+
 		context.close();
 
 	}
